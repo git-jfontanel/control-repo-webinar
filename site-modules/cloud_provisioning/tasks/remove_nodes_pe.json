@@ -1,0 +1,17 @@
+{
+    "description": "Remove nodes from PE",
+    "input_method": "environment",
+    "parameters": {
+        "machines_count": {
+            "description": "Number of nodes to remove",
+            "type": "Integer"
+        },
+        "name": {
+            "description": "name of the VMs",
+            "type": "String[1]"
+        },
+        "domain": {
+            "type": "String[1]"
+        }
+    }
+}

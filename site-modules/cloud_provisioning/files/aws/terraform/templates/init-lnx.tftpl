@@ -1,0 +1,37 @@
+#!/bin/bash
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+# Write out new agent name for later use
+echo "${agent_name}.${dns_domain}" > /etc/default/agentname
+
+# Create hosts entry so we can resolve primary server
+echo "${primary_ip} ${primary_name} puppet" >> /etc/hosts
+
+# Create host entry for self
+IPADDR=($(hostname -i))
+echo "$${IPADDR} ${agent_name}.${dns_domain} ${agent_name}" >> /etc/hosts
+
+# Update Hostname 
+hostnamectl set-hostname ${agent_name}.${dns_domain}
+
+# Install required utils
+yum install -y curl
+
+# Populate csr_attributes.yaml files for Puppet agent installation
+if [ ! -d /etc/puppetlabs/puppet ]; then
+   mkdir -p /etc/puppetlabs/puppet
+fi
+cat > /etc/puppetlabs/puppet/csr_attributes.yaml << YAML
+custom_attributes:
+    challengePassword: ${challengepassword}
+extension_requests:
+    pp_role : ${role}
+YAML
+
+# Create the installer script
+cat << EOF > /tmp/install_pe_agent.sh
+curl -k "https://${primary_name}:8140/packages/current/install.bash" | sudo bash -s agent:certname=${agent_name}.${dns_domain}
+EOF
+
+# Puppet agent installation
+chmod +x /tmp/install_pe_agent.sh
+/tmp/install_pe_agent.sh

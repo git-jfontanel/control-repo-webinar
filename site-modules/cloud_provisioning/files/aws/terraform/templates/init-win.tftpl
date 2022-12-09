@@ -1,0 +1,40 @@
+<powershell>
+# Create a hosts entry so we can resolve puppet
+$host_entry = "${primary_ip} ${primary_name} puppet"
+$host_entry | Out-File -FilePath C:\Windows\System32\Drivers\etc\hosts -Append -Encoding ascii
+
+$agent_ip = (Get-NetIPAddress -AddressFamily IPv4 -InterfaceIndex 3).IpAddress
+$agent_host_entry = "{$$agent_ip} ${agent_name}.${dns_domain} ${agent_name}"
+$agent_host_entry | Out-File -FilePath C:\Windows\System32\Drivers\etc\hosts -Append -Encoding ascii
+
+# Write out what the agent name should be for future use
+# $agent_certname = "${agent_name}.${dns_domain}"
+# $agent_certname | Out-File -FilePath C:\agentname.txt -Encoding ascii
+
+# Configure Windows Updates
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name AUOptions -Value 3
+Start-Service wuauserv
+Set-Service -Name wuauserv -StartupType Automatic
+
+# Populate csr_attributes.yaml files for Puppet agent installation
+$puppet_path="C:\ProgramData\PuppetLabs\puppet\etc"
+if ( !(Test-Path $puppet_path) ) {
+    New-Item $puppet_path -ItemType Directory
+}
+
+$content = @"
+custom_attributes:
+    challengePassword: ${challengepassword}
+extension_requests:
+    pp_role : ${role}
+"@
+$content | Out-File -FilePath $puppet_path/csr_attributes.yaml -Append -Encoding ascii
+
+# Install Puppet agent
+[System.Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; 
+[Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; 
+$webClient = New-Object System.Net.WebClient; 
+$webClient.DownloadFile('https://${primary_name}:8140/packages/current/install.ps1', 'install.ps1'); .\install.ps1 -v main:certname=${agent_name}.${dns_domain}
+
+Rename-Computer -NewName "${agent_name}" -Force -Restart
+</powershell>

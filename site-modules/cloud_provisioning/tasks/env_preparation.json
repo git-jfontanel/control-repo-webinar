@@ -1,0 +1,32 @@
+{
+    "description": "Preparation environment for Terraform",
+    "input_method": "environment",
+    "parameters": {
+        "dir": {
+            "description": "Terraform directory",
+            "type": "String[1]"
+        },
+        "name": {
+            "description": "name of the VMs",
+            "type": "String[1]"
+        },
+        "instance_type": {
+            "type": "String[1]"
+        },
+        "os": {
+            "type": "String[1]"
+        },
+        "machines_count": {
+            "type": "Integer"
+        },
+        "region": {
+            "type": "String[1]"
+        },
+        "role": {
+            "type": "Optional[String]"
+        },
+        "challengepassword": {
+            "type": "Optional[String]"
+        }
+    }
+}

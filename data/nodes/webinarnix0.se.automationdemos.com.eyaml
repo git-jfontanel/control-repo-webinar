@@ -1,0 +1,101 @@
+---
+
+lookup_options:
+  cloud_provisioning::init::aws_access_key_id:  
+    convert_to: 'Sensitive'
+  cloud_provisioning::init::aws_secret_access_key:
+    convert_to: 'Sensitive'
+  cloud_provisioning::init::az_sub_id:
+    convert_to: 'Sensitive'
+  cloud_provisioning::init::az_sub_tenant_id:
+    convert_to: 'Sensitive'
+  cloud_provisioning::init::az_installation_id:
+    convert_to: 'Sensitive'
+
+cloud_provisioning::init::packages:
+  yum-utils:
+    ensure: present
+  curl:
+    ensure: present
+  unzip:
+    ensure: present
+  terraform:
+    ensure: present
+  epel-release:
+    ensure: present
+  jq:
+    ensure: present
+  centos-release-scl-rh:
+    ensure: present
+  ruby:
+    ensure: present
+  azure-cli:
+    ensure: present 
+
+awscli2::version: '2.8.12'
+
+cloud_provisioning::init::aws_access_key_id: >
+  ENC[PKCS7,MIIBiQYJKoZIhvcNAQcDoIIBejCCAXYCAQAxggEhMIIBHQIBAD
+  AFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAZvx4rNTn4jHTXlEOGjmecBAqwD
+  ok24YY6tzfT454t98IflGGeT2bAJCi+ngylHdeAi84ChB/Rh2ro2kO4zxooL
+  Qf3E6VHNsLbZlai+iSY+AwgvxKox0NrHfYBAtYLSq9Po+sa5BWYzdIhUixLC
+  KwqNZclYrPg57qZBT2M13b8VLNysYogN2e15P1DA+TB1rejHM1FfQbtMMRZN
+  AJSQsSuc1Aw5uQ1IeyN90ufczFB6G6hYbN7NEEEoCy4abqld7mUL/O+aompE
+  qaHV3P24EhbW42+dEDJQzWwbCC/d4u8SwrrUAltnesbuF0OBe0C6/4zYmrpR
+  x22PYUPB4iQJXabzBMBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBDGUnOn4H
+  tKNITjo9RuInyWgCA/WqilMHpg7oWi+slFVwFXcneYiC4gXB0WQ1L0Fhe0Fw
+  ==]
+
+cloud_provisioning::init::aws_secret_access_key: >
+  ENC[PKCS7,MIIBmQYJKoZIhvcNAQcDoIIBijCCAYYCAQAxggEhMIIBHQIBAD
+  AFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAM3XTHi/OuA7fBzL7vIAcwb4JFQ
+  I4+bEogUR+wLTelm6Hc8EVfArgATDPvswhivF6aWFZCSJbWbja97Y/fFftND
+  yfg9+/RL6ASXZxeTxzUq+d07mpSPipTcNpUZX9z/D+FC71+85rxad37h/jGf
+  EEbxgJPaBUvLKE6WrIFt+BDFNsNbgQv+cqtyTjEoELg0tuL/b59e0+JTBsQf
+  cvCxNiAcC5y3GaCST/OFTg1W8MroknzuFFYLkMWT/pAIA38BG3ntOKPp4afn
+  C575tVpa/20DkYeTl7pUV/cBNasKtMc76dM/HLU1415AmkwOXbjHFCcVIA/Z
+  nWCW4bFUdR4jX1QTBcBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBABvzKolD
+  VatlSjt/55b5wagDBBea7fYYCzYXM4qW1Zwz+N86y1Xos41OBwPkEDtjcvTZ
+  bBhMYoXxJfd5S/jUlOBYI=]
+  
+cloud_provisioning::init::az_sub_id: >
+  ENC[PKCS7,MIIBmQYJKoZIhvcNAQcDoIIBijCCAYYCAQAxggEhMIIBHQIBAD
+  AFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAVxV1JrRkF9ezqeEy8HOcFkpg9X
+  p81CBc56UpsXFM5v4rbNsjsRmviR94TGMD5KQIGvbTPsn0S/ytGeYiGY6yCX
+  Ql+XWgwQ657l25UX9gI22fRA9yhTWornjq7Rtl9c+Qky/e4d22/oMPBe0P7S
+  4bcU+MD917++hJNn9q2yEcoEA1PQLF9+hDx+VC1q5XtF3MA4UMixQDnkZ8AV
+  GMfneUpT4YBoiepwc1legKwhgpn4VXAU4BP3oXE/T+IfJf7WOSD20/u/I/o2
+  8mO94wk5BSigRbXlMaTivRBqcfhM7MTlH6csEX5Jq7vghX7MjfJ+ToPcRHdj
+  GCMRbIOCyftUelJTBcBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBD8afcEsp
+  CN2wSA/T5Krk3bgDBoT9c7D5BNOVhF4lKMARRlaRln2n5d5zy+UnP+P5Db40
+  KA4jvOz2jRwIqv0yLiZzM=]
+
+cloud_provisioning::init::az_sub_user: jerome.fontanel@puppet.com
+
+cloud_provisioning::init::az_sub_tenant_id: >
+  ENC[PKCS7,MIIBmQYJKoZIhvcNAQcDoIIBijCCAYYCAQAxggEhMIIBHQIBAD
+  AFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEABBS0s+dxz3hm6PoT34zm3Dwfdo
+  +kCLGcs+k+HgXRu0nFvADh74zM53j9z32Cb2SQIX4tWSxWjJAkhiRc78igG/
+  DkO4UncCEKygM7rbh60QPUGdvWeCJ1L5qpe3xNwQar9EJHr22AfWvqWxo3e6
+  PCJhg3bckpH7nQ+96tigmWV5bY+4C0xlROsnoyhuLdp6sG2QEgH5LfQLzqm0
+  pnh+ltzGzSOAXB/IaOD6mOqzz6DRedQwQ193frNsfq3QkPvRaF0rzsj6vCRJ
+  jzGv/rH0kVFBT+lTIMW990wAHNWjlhAbboCY3VNuFdI0oHkqKLH7sBc5opdi
+  DmrHMNtv0pT9eTVjBcBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBBhAS0+bx
+  H990yQ4Bxk003ygDAR7BI8GODjsgAncJYV+unO3+govT1kAYrehRK5sPCGgh
+  CtDLkJ6KPmqAOmoeG7i60=]
+
+
+cloud_provisioning::init::az_installation_id: >
+  ENC[PKCS7,MIIBmQYJKoZIhvcNAQcDoIIBijCCAYYCAQAxggEhMIIBHQIBAD
+  AFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAq8F6Bdx4x+JudI2L65+5Lo6Art
+  DkDZOkRtWfxsKq+E57FUx+UgOzjPCj6qmYJin1CLGFsAFH+e2G1yAoc3Htc5
+  /+u14Vhk1kdyg1oxXdKzppJBj884ilXb9BB0+VbjbdKETVxK/VAkiLmVl4je
+  q1H7zkCVOhqeJFIMGcoCVy8H4t/4aR7Ip4/YlSTvlxD2caf4Dc6GcWqUUgEE
+  fCti7wA2fHLJoji2IWzsf7KalEri2Ey7TyIK6DzaBoOnqVtMXyc9zBPNUmk4
+  kpH2CiEpeHd8Edd452oQ/FMdu2No+JKjjXkBvuuzj4y1B0YUBfvx8siYN2uz
+  lqscKIRygtveC2+jBcBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBC8z9FICE
+  7FDp4HfcLu0ZolgDD4qq5ClbOI5g8e/vGQb4uFzzf2CdKNMPWAW30xGYptww
+  hgfgkD8MYE8RRA6Ik5qyU=]
+
+
+
